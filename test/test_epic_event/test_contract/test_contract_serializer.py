@@ -22,8 +22,8 @@ def test_from_obj_dict_to_view_data():
 def test_get_obj_dict():
     # Créer un dictionnaire fictif de données de vue
     view_data = {
-        "Montant total": 3000.0,
-        "Reste à payer": 1500.0,
+        "Cout": 3000.0,
+        "Balance": 1500.0,
         "Statut": 2,
         "Sous contrat depuis": "2023-11-10",
         "Dernière MàJ": "2023-11-10 14:19:47",
@@ -33,7 +33,7 @@ def test_get_obj_dict():
 
     # Utiliser le serializer pour convertir le dictionnaire en un dictionnaire d'objet Contract
     obj_dict = ContractSerializer.from_view_data_to_obj_dict(view_data)
-
+    print(obj_dict)
     # Vérifier que les champs attendus sont présents dans le dictionnaire
     assert "cost" in obj_dict
     assert "balance" in obj_dict
@@ -44,8 +44,8 @@ def test_get_obj_dict():
     assert "contract_id" in obj_dict
 
     # Vérifier que les valeurs sont correctes
-    assert obj_dict["cost"] == view_data["Montant total"]
-    assert obj_dict["balance"] == view_data["Reste à payer"]
+    assert obj_dict["cost"] == view_data["Cout"]
+    assert obj_dict["balance"] == view_data["Balance"]
     assert obj_dict["statut"] == view_data["Statut"]
     assert obj_dict["creation_date"] == view_data["Sous contrat depuis"]
     assert obj_dict["last_update"] == view_data["Dernière MàJ"]

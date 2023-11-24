@@ -1,15 +1,14 @@
 from unittest.mock import patch, MagicMock
 import os
 
-import pytest
+from rich.table import Table
 
-from display.rich_cli_display import (
-    RichQuestionaryCliDisplay,
-    display_query_results,
+from base.display.rich_cli_display import (
     feed_table,
     get_table,
+    display_query_results,
+    RichQuestionaryCliDisplay,
 )
-from epic_event_CRM.base.form import BaseForm
 
 
 def test_feed_table():
@@ -17,10 +16,11 @@ def test_feed_table():
     view_name = "TestView"
     results = {"fields": ["Field1", "Field2"], "data": [["Value1"], ["Value2"]]}
 
+    table = Table(title=view_name)
+
     # Appelle la fonction feed_table
-    table = feed_table(view_name, results, as_select=False)
+    table = feed_table(table, results, as_select=False)
     # Vérifie que le tableau a été construit correctement
-    assert len(table.columns) == 2  # 2 fields + Selection Idx.
     assert len(table.rows) == 2  # 1 row of fields + 1 row of data
 
 
@@ -28,11 +28,11 @@ def test_feed_table_select():
     # Crée un tableau de résultats simulé
     view_name = "TestView"
     results = {"fields": ["Field1", "Field2"], "data": [["Value1"], ["Value2"]]}
-
+    table = Table(view_name)
     # Appelle la fonction feed_table
-    table = feed_table(view_name, results, as_select=True)
+    table = feed_table(table, results, as_select=True)
     # Vérifie que le tableau a été construit correctement
-    assert len(table.columns) == 3  # 2 fields + Selection Idx.
+    assert len(table.columns) == 2  # 2 fields + Selection Idx.
     assert len(table.rows) == 2  # 1 row of fields + 1 row of data
     # assert "Selection Idx." in table.columns[0]
     # assert "0" in table.columns

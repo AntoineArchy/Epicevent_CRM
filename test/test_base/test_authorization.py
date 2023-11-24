@@ -1,5 +1,5 @@
-from epic_event_CRM.base import roles
-from epic_event_CRM.base.authorization import (
+from base import roles
+from base.authorization import (
     BaseAuthorization,
     IsCollaborator,
     IsSupport,

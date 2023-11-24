@@ -1,13 +1,12 @@
 from datetime import datetime
 
-from epic_event_CRM.base.authorization import IsCommercial
+from base.authorization import IsCommercial
 from epic_event_CRM.client.model import Client
 from epic_event_CRM.client.serializer import ClientSerializer
 
 
 def test_create_authorization():
     serializer = ClientSerializer()
-    print(serializer.create_authorization)
     assert isinstance(serializer.create_authorization[0](), IsCommercial)
 
 
@@ -94,13 +93,14 @@ def test_from_view_data_to_obj_dict():
     }
 
     expected_obj_dict = {
-        "full_name": "John Doe",
-        "company_name": "ABC Corp",
-        "email": "john.doe@example.com",
-        "phone": "123456789",
-        "creation_date": "2023-11-10",
-        "last_update": "2023-11-10 13:29:48",
         "client_id": 1,
+        "collaborator_id": 2,
+        "company_name": "ABC Corp",
+        "creation_date": "2023-11-10",
+        "email": "john.doe@example.com",
+        "full_name": "John Doe",
+        "last_update": "2023-11-10 13:29:48",
+        "phone": "123456789",
     }
 
     assert ClientSerializer.from_view_data_to_obj_dict(view_data) == expected_obj_dict

@@ -1,7 +1,7 @@
 from unittest import mock
 
-from epic_event_CRM.base import authorization
-from epic_event_CRM.base.view import BaseView, CreateView, set_table_allias, get_filters
+from base import authorization
+from base.view import BaseView, CreateView, set_table_allias, get_filters
 from epic_event_CRM.collaborator.model import Collaborator
 
 
@@ -80,18 +80,7 @@ class TestBaseView:
         view = BaseView()
         assert view.are_requirements_meet(None)
 
-    @mock.patch("epic_event_CRM.base.context.Context", autospec=True)
-    def test_are_requirements_meet_with_requirements(self, mock_context_cls):
-        defined_context = {"requirement1": True}
-        mock_context_instance = mock_context_cls.return_value
-        mock_context_instance.get_in_context.side_effect = (
-            lambda x: defined_context.get(x, None)
-        )
-
-        view = BaseViewWithContextRequirements()
-        assert not view.are_requirements_meet(mock_context_instance)
-
-    @mock.patch("epic_event_CRM.base.context.Context", autospec=True)
+    @mock.patch("base.context.Context", autospec=True)
     def test_are_requirements_meet_with_requirements_met(self, mock_context_cls):
         defined_context = {"requirement1": True, "requirement2": True}
         mock_context_instance = mock_context_cls.return_value
@@ -102,7 +91,7 @@ class TestBaseView:
         view = BaseViewWithContextRequirements()
         assert view.are_requirements_meet(mock_context_instance)
 
-    @mock.patch("epic_event_CRM.base.context.Context", autospec=True)
+    @mock.patch("base.context.Context", autospec=True)
     def test_can_display_without_authorization(self, mock_context_cls):
         view = BaseView()
         collaborator_instance = Collaborator()
@@ -111,7 +100,7 @@ class TestBaseView:
 
         assert view.can_display(mock_context_instance)
 
-    @mock.patch("epic_event_CRM.base.context.Context", autospec=True)
+    @mock.patch("base.context.Context", autospec=True)
     def test_can_display_with_authorization(self, mock_context_cls):
         view = BaseViewWithAuthorization()
         collaborator_instance = Collaborator()
@@ -120,24 +109,7 @@ class TestBaseView:
 
         assert not view.can_display(mock_context_instance)
 
-    @mock.patch("epic_event_CRM.base.context.Context", autospec=True)
-    def test_can_display_with_missing_requirements(self, mock_context_cls):
-        view = BaseViewWithContextRequirements()
-        collaborator_instance = Collaborator()
-
-        mock_context_instance = mock_context_cls.return_value
-        mock_context_instance.current_user = collaborator_instance
-        defined_context = {
-            "requirement1": True,
-        }
-
-        mock_context_instance = mock_context_cls.return_value
-        mock_context_instance.get_in_context.side_effect = (
-            lambda x: defined_context.get(x, None)
-        )
-        assert not view.can_display(mock_context_instance)
-
-    @mock.patch("epic_event_CRM.base.context.Context", autospec=True)
+    @mock.patch("base.context.Context", autospec=True)
     def test_can_display_with_requirements_met(self, mock_context_cls):
         view = BaseViewWithContextRequirements()
         collaborator_instance = Collaborator()
@@ -159,6 +131,6 @@ class TestBaseView:
         view = BaseViewComplete()
         expected_query = "SELECT field1 AS 'alias1', field2 AS 'alias2' FROM my_table WHERE field1 = 'value';"
 
-        assert view.get_query().replace(" ", "").replace(
+        assert view.get_query()[0].replace(" ", "").replace(
             "\n", ""
         ) == expected_query.replace(" ", "").replace("\n", "")

@@ -1,4 +1,4 @@
-from epic_event_CRM.base import authorization
+from base import authorization
 from epic_event_CRM.collaborator.model import Collaborator
 from epic_event_CRM.collaborator.serializer import CollaboratorSerializer
 
@@ -21,9 +21,9 @@ def test_from_obj_dict_to_view_data():
 
     expected_result = {
         "Département": "sales",
+        "Nom": "Doe",
         "Prénom": "John",
-        "Nom d'utilisateur (EpicEvent/Mysql)": "Doe",
-        "Mot de passe (provisoire)": "jdoe",
+        "Nom affiché": "jdoe",
         "Collaborateur depuis": "2023-11-10",
         "Collaborateur ID": 1,
     }
@@ -63,7 +63,7 @@ def test_from_view_data_to_obj_dict():
         "Département": "development",
         "Prénom": "Alice",
         "Nom": "Johnson",
-        "téléphone": "ajohnson",
+        "Nom affiché": "ajohnson",
         "Collaborateur depuis": "2023-11-10",
     }
 
@@ -73,6 +73,7 @@ def test_from_view_data_to_obj_dict():
         "last_name": "Johnson",
         "username": "ajohnson",
         "creation_date": "2023-11-10",
+        "collaborator_id": -1,
     }
 
     result = CollaboratorSerializer.from_view_data_to_obj_dict(view_data)

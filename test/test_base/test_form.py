@@ -1,11 +1,11 @@
-from epic_event_CRM.base.form import BaseForm
+from base.form import BaseForm
 
 
 def test_get_fields():
     class TestForm(BaseForm):
         fields_display = ["field1", "field2"]
 
-    result = TestForm.get_fields()
+    result = TestForm.get_fields(None)
     expected_result = ["field1", "field2"]
     assert result == expected_result
 

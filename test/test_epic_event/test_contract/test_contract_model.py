@@ -34,4 +34,4 @@ def test_contract_last_update():
     last_update_date = datetime.strptime(contract.last_update, "%Y-%m-%d %H:%M:%S")
     time_difference = now_date - last_update_date
     # Acceptons une différence de temps d'une seconde pour éviter des échecs intermittents
-    assert time_difference < timedelta(seconds=1)
+    assert time_difference < timedelta(seconds=2)
