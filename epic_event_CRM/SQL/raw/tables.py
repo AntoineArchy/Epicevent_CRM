@@ -5,8 +5,10 @@ CREATE TABLE collaborator (
   first_name VARCHAR(40) NOT NULL,
   last_name VARCHAR(40) NOT NULL,
   username VARCHAR(30) NOT NULL,
-  password VARCHAR(30) NOT NULL,
-  creation_date DATE NOT NULL
+  password VARCHAR(60) NOT NULL,
+  creation_date DATE NOT NULL,
+  last_update DATETIME,
+  is_active BOOLEAN DEFAULT TRUE
   );
  """
 CREATE_CLIENT_QUERY = """
@@ -18,7 +20,8 @@ CREATE TABLE client (
   email VARCHAR(30) NOT NULL,
   phone VARCHAR(30) NOT NULL,
   creation_date DATE NOT NULL,
-  last_update DATETIME
+  last_update DATETIME,
+  is_active BOOLEAN DEFAULT TRUE
   );
  """
 
@@ -30,7 +33,8 @@ CREATE TABLE contract (
   balance FLOAT,
   statut VARCHAR(20),
   creation_date DATE,
-  last_update DATETIME
+  last_update DATETIME,
+  is_active BOOLEAN DEFAULT TRUE
   );
  """
 
@@ -38,7 +42,7 @@ CREATE_EVENT_QUERY = """
 CREATE TABLE event (
   event_id INT AUTO_INCREMENT PRIMARY KEY,
   contract_id INT,
-  support_contact INT,
+  support_contact INT DEFAULT NULL,
   name VARCHAR(30),
   event_start DATETIME,
   event_end DATETIME,
@@ -46,7 +50,8 @@ CREATE TABLE event (
   attendees INT,
   notes TINYTEXT,
   creation_date DATE,
-  last_update DATETIME
+  last_update DATETIME,
+  is_active BOOLEAN DEFAULT TRUE
 );
 """
 
@@ -78,7 +83,7 @@ REFERENCES collaborator(collaborator_id)
 ON DELETE SET NULL;
 """
 
-CREATE_QUERY_LIST = [
+CREATE_TABLE_QUERY_LIST = [
     CREATE_COLLABORATEURS_QUERY,
     CREATE_CLIENT_QUERY,
     CREATE_CONTRACT_QUERY,

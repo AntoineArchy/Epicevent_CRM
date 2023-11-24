@@ -2,11 +2,15 @@ COLLABORATEUR_FULL_VIEW = """
 CREATE OR REPLACE VIEW epicevent.list_collaborator AS 
 SELECT 
   department AS 'Département', 
-  first_name AS 'Nom', 
-  last_name AS 'Prénom', 
+  first_name AS 'Prénom', 
+  last_name AS 'Nom', 
   username AS 'Nom affiché', 
-  creation_date AS 'Collaborateur depuis' 
-FROM collaborator;
+  creation_date AS 'Collaborateur depuis',
+  collaborator_id AS 'Collaborateur ID',
+  last_update AS 'Dernière MàJ',
+  is_active AS 'Actif'
+FROM collaborator
+ORDER BY is_active DESC;
 """
 
 CLIENT_FULL_VIEW = """
@@ -18,7 +22,7 @@ SELECT
   email AS 'adresse mail', 
   phone AS 'téléphone', 
   creation_date AS 'client depuis', 
-  last_update AS 'dernier contact', 
+  last_update AS 'Dernière MàJ',
   collaborator_id AS 'Commercial associé' 
 FROM client;
 """
@@ -32,7 +36,8 @@ SELECT
   cost AS 'Cout', 
   balance AS 'Balance', 
   statut AS 'Statut', 
-  creation_date AS 'Sous contrat depuis' 
+  creation_date AS 'Sous contrat depuis', 
+  last_update AS 'Dernière MàJ'
 FROM contract;
 """
 
@@ -42,12 +47,14 @@ CREATE OR REPLACE VIEW epicevent.list_event AS
 SELECT 
   contract_id AS `Contrat ID`,
   event_id AS 'Event ID',
+  support_contact AS 'Contact de support',
   name AS 'Événement', 
   event_start AS 'Début', 
   event_end AS 'Fin', 
   location AS 'Lieu', 
   attendees AS 'Participants', 
-  notes AS 'Notes' 
+  notes AS 'Notes' ,
+  last_update AS 'Dernière MàJ'
 FROM event;
 """
 
@@ -71,28 +78,41 @@ SELECT * FROM list_event
 WHERE `Contrat ID` IN (
   SELECT `Contrat ID` 
   FROM commercial_own_client );
-
 """
 
 GESTION_UNASSIGNED_EVENT = """
 CREATE OR REPLACE VIEW epicevent.unassigned_event AS
-SELECT * FROM event
-WHERE support_contact IS NULL;
+SELECT * FROM list_event
+WHERE `Contact de support` IS NULL;
 """
 
 SUPPORT_ASSIGNEE_EVENT = """
 CREATE OR REPLACE VIEW epicevent.user_assigned_event AS
-SELECT * FROM event
-WHERE support_contact = get_collaborator_id();
+SELECT * FROM list_event
+WHERE `Contact de support` = get_collaborator_id();
 """
 
-CREATE_QUERY_LIST = [
+CREATE_VIEW_QUERY_LIST = [
     COLLABORATEUR_FULL_VIEW,
     CLIENT_FULL_VIEW,
     CONTRACT_FULL_VIEW,
     EVENT_FULL_VIEW,
     COMMERCIAL_OWN_CLIENT_VIEW,
     COMMERCIAL_CLIENT_CONTRACT_VIEW,
+    COMMERCIAL_CLIENT_EVENT_VIEW,
     GESTION_UNASSIGNED_EVENT,
     SUPPORT_ASSIGNEE_EVENT,
+]
+
+
+DROP_VIEW_QUERY_LIST = [
+    "DROP VIEW IF EXISTS epicevent.list_collaborator",
+    "DROP VIEW IF EXISTS epicevent.list_client",
+    "DROP VIEW IF EXISTS epicevent.list_contract",
+    "DROP VIEW IF EXISTS epicevent.list_event",
+    "DROP VIEW IF EXISTS epicevent.commercial_own_client",
+    "DROP VIEW IF EXISTS epicevent.commercial_client_contracts",
+    "DROP VIEW IF EXISTS epicevent.commercial_client_event_view",
+    "DROP VIEW IF EXISTS epicevent.unassigned_event",
+    "DROP VIEW IF EXISTS epicevent.user_assigned_event",
 ]
