@@ -1,4 +1,5 @@
-from epic_event_CRM.base.form import BaseForm
+from base.form import BaseForm
+from base.roles import EpicEventRole
 
 
 class EventCreationForm(BaseForm):
@@ -35,3 +36,15 @@ class EventCreationForm(BaseForm):
             "message": "Ajoutez des remarque particulière.",
         },
     ]
+
+    @classmethod
+    def get_fields(cls, context):
+        if context.current_user.has_role(EpicEventRole.gestion):
+            return ["Modifier le collaborateur support"]
+        return super().get_fields(context)
+
+    @classmethod
+    def get_question(cls, field):
+        if field == "Modifier le collaborateur support":
+            return "Select_Collaborator"
+        return super().get_question(field)

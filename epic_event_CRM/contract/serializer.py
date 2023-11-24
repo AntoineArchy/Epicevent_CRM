@@ -1,7 +1,7 @@
 import datetime
 
-from epic_event_CRM.base import authorization
-from epic_event_CRM.base.serializer import BaseSerializer
+from base import authorization
+from base.serializer import BaseSerializer
 
 from epic_event_CRM.contract.form import ContractCreationForm
 from epic_event_CRM.contract.model import Contract
@@ -46,8 +46,8 @@ class ContractSerializer(BaseSerializer):
     @classmethod
     def from_view_data_to_obj_dict(cls, view_data):
         from_view_dict = {
-            "cost": view_data.get("Montant total", "Non transmis"),
-            "balance": view_data.get("Reste à payer", "Non transmis"),
+            "cost": view_data.get("Cout", "Non transmis"),
+            "balance": view_data.get("Balance", "Non transmis"),
             "statut": view_data.get("Statut", "Non transmis"),
             "creation_date": view_data.get(
                 "Sous contrat depuis", datetime.datetime.now().strftime("%Y-%m-%d")
@@ -58,6 +58,5 @@ class ContractSerializer(BaseSerializer):
             "contract_id": view_data.get("Contrat ID", -1),
             "client_id": view_data.get("Client ID", -1),
         }
-        print(view_data)
-        print(from_view_dict)
+
         return from_view_dict

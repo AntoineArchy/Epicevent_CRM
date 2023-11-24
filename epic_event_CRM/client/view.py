@@ -1,12 +1,12 @@
-from epic_event_CRM.base import authorization
-from epic_event_CRM.base.view import BaseView, CreateView
+from base import authorization
+from base.view import BaseView, CreateView
 
 
 class ClientView(BaseView):
     view_name = "list_client"
     name_display = "Voir tous les clients"
 
-    allow_select = True
+    select_authorization = [authorization.Forbidden]
 
 
 class UserOwnClientView(ClientView):
@@ -14,9 +14,12 @@ class UserOwnClientView(ClientView):
     name_display = "Voir mes clients"
 
     view_authorization = [authorization.IsCommercial]
+    select_authorization = [authorization.IsCommercial]
+    update_authorization = [authorization.IsCommercial]
+    delete_authorization = [authorization.Forbidden]
 
 
 class CreateClientView(CreateView):
     name_display = "Créer un nouveau client"
 
-    view_authorization = [authorization.IsNotSupport]
+    view_authorization = [authorization.IsCommercial]

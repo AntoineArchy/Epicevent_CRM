@@ -1,8 +1,10 @@
 from typing import Dict
 
-from epic_event_CRM.base.context import Context
-from epic_event_CRM.base.controller import BaseController
-from epic_event_CRM.base.model import BaseModel
+from base.context import Context
+from base.controller import BaseController
+from base.model import BaseModel
+from epic_event_CRM.collaborator.controller import CollaboratorController
+from epic_event_CRM.collaborator.view import SupportCollaboratorView
 from epic_event_CRM.event.form import EventCreationForm
 from epic_event_CRM.event.model import Event
 from epic_event_CRM.event.serializer import EventSerializer
@@ -37,3 +39,15 @@ class EventController(BaseController):
             contract = context.get_in_context("contract")
             form["contract_id"] = contract.id
         return super().create(context, form)
+
+    @classmethod
+    def get_answer(cls, context, question):
+        if question in cls.form.questions:
+            return context.display.fill_form(form_data=question)
+
+        elif question == "Select_Collaborator":
+            selected_collaborator = CollaboratorController.handle_user_select(
+                context, SupportCollaboratorView
+            )
+            if selected_collaborator is not None:
+                return {"support_contact": selected_collaborator.id}

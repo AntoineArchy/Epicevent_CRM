@@ -1,7 +1,7 @@
 import datetime
 
-from epic_event_CRM.base import authorization
-from epic_event_CRM.base.serializer import BaseSerializer
+from base import authorization
+from base.serializer import BaseSerializer
 
 from epic_event_CRM.event.form import EventCreationForm
 from epic_event_CRM.event.model import Event
@@ -36,7 +36,7 @@ class EventSerializer(BaseSerializer):
             "name": obj.name,
             "event_start": obj.event_start,
             "event_end": obj.event_end,
-            # "location": obj.location,
+            "location": obj.location,
             "attendees": obj.attendees,
             "notes": obj.notes,
             "creation_date": obj.creation_date,

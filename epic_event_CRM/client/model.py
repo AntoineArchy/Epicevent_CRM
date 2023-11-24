@@ -13,6 +13,9 @@ class Client:
     client_id: int = -1
     collaborator_id: int = -1
 
+    def set_id(self, id):
+        self.client_id = id
+
     @property
     def id(self):
         return self.client_id

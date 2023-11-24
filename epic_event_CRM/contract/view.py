@@ -1,12 +1,13 @@
-from epic_event_CRM.base import authorization
-from epic_event_CRM.base.view import BaseView, CreateView
+from base import authorization
+from base.view import BaseView, CreateView
+from epic_event_CRM.contract.form import ContractStatus
 
 
 class ContractView(BaseView):
     view_name = "list_contract"
     name_display = "Voir tous les contrats"
 
-    allow_select = True
+    select_authorization = [authorization.IsGestion]
 
 
 class UserClientContractView(ContractView):
@@ -14,6 +15,21 @@ class UserClientContractView(ContractView):
     name_display = "Voir les contrats de mes clients"
 
     view_authorization = [authorization.IsCommercial]
+    select_authorization = [authorization.IsCommercial]
+
+
+class UnsignedContract(UserClientContractView):
+    name_display = "Voir les contrat pas encore signé."
+
+    filter = f"`Statut` = '{ContractStatus.to_sign.value}'"
+    context_requirements = [UserClientContractView]
+
+
+class UnPayedContract(UserClientContractView):
+    name_display = "Voir les contrat pas encore payé."
+
+    filter = f"`Statut` = '{ContractStatus.to_pay.value}'"
+    context_requirements = [UserClientContractView]
 
 
 class CreateContractView(CreateView):

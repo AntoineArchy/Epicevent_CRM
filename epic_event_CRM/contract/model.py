@@ -12,6 +12,9 @@ class Contract:
     contract_id: int = -1
     client_id: int = -1
 
+    def set_id(self, id):
+        self.contract_id = id
+
     @property
     def id(self):
         return self.contract_id

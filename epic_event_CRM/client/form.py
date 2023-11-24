@@ -1,4 +1,4 @@
-from epic_event_CRM.base.form import BaseForm
+from base.form import BaseForm
 
 
 class ClientCreationForm(BaseForm):

@@ -1,13 +1,13 @@
 from enum import Enum
 
-from epic_event_CRM.base.form import BaseForm
+from base.form import BaseForm
 
 
-class ContractStatu(Enum):
-    to_sign = 1
-    signed = 2
-    to_pay = 3
-    payed = 4
+class ContractStatus(Enum):
+    to_sign = "À signer"
+    signed = "Signé"
+    to_pay = "Reste à payer"
+    payed = "Payé"
 
 
 class ContractCreationForm(BaseForm):
@@ -27,6 +27,6 @@ class ContractCreationForm(BaseForm):
             "type": "select",
             "name": "statut",
             "message": "A quelle étape en est le contrat ?",
-            "choices": [statu.name.capitalize() for statu in ContractStatu],
+            "choices": [statu.value.capitalize() for statu in ContractStatus],
         },
     ]

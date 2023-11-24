@@ -1,5 +1,5 @@
-from epic_event_CRM.base import roles
-from epic_event_CRM.base.form import BaseForm
+from base import roles
+from base.form import BaseForm
 
 
 class CollaboratorCreationForm(BaseForm):
@@ -7,18 +7,18 @@ class CollaboratorCreationForm(BaseForm):
         "Nom",
         "Prénom",
         "Nom d'utilisateur (EpicEvent/Mysql)",
-        "Mot de passe (provisoire)",
+        "Mot de passe",
         "Département",
     ]
     questions = [
         {
             "type": "text",
-            "name": "first_name",
+            "name": "last_name",
             "message": "Quel est le nom du collaborateur ?",
         },
         {
             "type": "text",
-            "name": "last_name",
+            "name": "first_name",
             "message": "Quel est le prénom du collaborateur ?",
         },
         {
@@ -29,8 +29,7 @@ class CollaboratorCreationForm(BaseForm):
         {
             "type": "password",
             "name": "password",
-            "message": "Indiquez le mot de passe provisoire du collaborateur (sera modifié lors de la première "
-            "connexion de celui-ci)",
+            "message": "Indiquez le mot de passe du collaborateur",
         },
         {
             "type": "select",

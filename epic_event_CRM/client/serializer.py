@@ -1,7 +1,7 @@
 import datetime
 
-from epic_event_CRM.base import authorization
-from epic_event_CRM.base.serializer import BaseSerializer
+from base import authorization
+from base.serializer import BaseSerializer
 from epic_event_CRM.client.model import Client
 
 
@@ -65,6 +65,7 @@ class ClientSerializer(BaseSerializer):
                 "dernier contact", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             ),
             "client_id": view_data.get("Client ID", -1),
+            "collaborator_id": view_data.get("Commercial associé", "Non assigné"),
         }
 
         return from_view_dict

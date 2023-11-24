@@ -1,5 +1,6 @@
 import dataclasses
 from datetime import datetime
+from typing import Optional
 
 
 @dataclasses.dataclass
@@ -11,8 +12,13 @@ class Event:
     attendees: int
     notes: str
     creation_date: str = datetime.now().strftime("%Y-%m-%d")
+    last_update: str = datetime.now().strftime("%Y-%m-%d")
     event_id: int = -1
     contract_id: int = -1
+    support_contact: Optional[int] = None
+
+    def set_id(self, id):
+        self.event_id = id
 
     @property
     def id(self):
