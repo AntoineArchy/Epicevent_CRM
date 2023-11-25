@@ -1,5 +1,3 @@
-Voici une version corrigée de votre README.md :
-
 # Présentation
 L'objectif de cet exercice est de mettre en place un CRM permettant à des utilisateurs de créer des clients, de définir les contrats et événements associés à ces clients, ainsi qu'aux administrateurs d'ajouter des comptes utilisateurs.  
 Toutes les entités de l'application (collaborateurs, clients, contrats et événements) doivent être sauvegardées en base de données, les autorisations de création et de mise à jour de ces entités suivent des règles dictées dans le cahier des charges.  
