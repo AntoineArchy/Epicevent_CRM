@@ -1,6 +1,7 @@
 # Présentation
 L'objectif de cet exercice est de mettre en place un CRM permettant à des utilisateurs de créer des clients, de définir les contrats et événements associés à ces clients, ainsi qu'aux administrateurs d'ajouter des comptes utilisateurs.  
-Toutes les entités de l'application (collaborateurs, clients, contrats et événements) doivent être sauvegardées en base de données, les autorisations de création et de mise à jour de ces entités suivent des règles dictées dans le cahier des charges.  
+Toutes les entités de l'application (collaborateurs, clients, contrats et événements) doivent être sauvegardées en base de données, les autorisations de création et de mise à jour de ces entités suivent des règles dictées dans le cahier des charges.   
+Pour une visualisation côte à côte du cahier des charges et des extraits de code correspondant, voir "Design/analyse_cahier_des_charges.pdf".  
 Cette application est développée en utilisant Python et MySQL.
 
 # Prérequis
