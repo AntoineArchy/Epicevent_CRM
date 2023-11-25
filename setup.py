@@ -207,7 +207,6 @@ def setup():
             setup_epic_event()
         except Exception as e:
             print(f"Sortie de l'installation de Epic Event CRM suite à l'erreur : {e}'")
-            # Ajoutez ici tout code de nettoyage ou de gestion d'erreur supplémentaire si nécessaire
             sys.exit(1)  # Arrête le programme avec un code d'erreur
         print("Configuration d'Epic Event terminée avec succès.")
         print(
@@ -227,7 +226,6 @@ def setup():
             print(
                 f"Sortie de la désinstallation de Epic Event CRM suite à l'erreur : {e}'"
             )
-            # Ajoutez ici tout code de nettoyage ou de gestion d'erreur supplémentaire si nécessaire
             sys.exit(1)  # Arrête le programme avec un code d'erreur
 
 
