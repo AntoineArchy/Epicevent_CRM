@@ -109,6 +109,10 @@ Il vous sera demandé une connection administrateur, le choix de faire un dump d
 # Utilisation par les collaborateurs 
 Pour accéder au menu principal de l'application, exécutez : 'python3 main_menu.py'.  
 Il vous faudra alors vous connecter avec les identifiants transmis par un administrateur pour commencer à utiliser l'application.
+
+Exemple d'une vue contrat et du menu disponible pour un commercial : 
+![img.png](repo_media/img.png)
+
 ### Navigation
 La navigation dans les menus se fait via les flèches directionnelles du clavier, la sélection de l'option actuellement active dans le menu se fait avec la touche 'entrée'.  
 Lors de la sélection multiple (sélectionner les champs à éditer sur un formulaire par exemple), naviguez avec les flèches, effectuez la sélection ou la désélection avec la touche 'espace' puis validez vos choix avec la touche 'entrée'.  
