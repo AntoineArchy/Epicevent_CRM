@@ -31,14 +31,17 @@ FROM client;
 CONTRACT_FULL_VIEW = """
 CREATE OR REPLACE VIEW epicevent.list_contract AS 
 SELECT 
-  contract_id AS `Contrat ID`,
-  client_id AS 'Client ID', 
-  cost AS 'Cout', 
-  balance AS 'Balance', 
-  statut AS 'Statut', 
-  creation_date AS 'Sous contrat depuis', 
-  last_update AS 'Dernière MàJ'
-FROM contract;
+  c.contract_id AS `Contrat ID`,
+  cl.client_id AS 'Client ID',
+  CONCAT(cl.full_name, ' - ', cl.company_name) AS 'Client',
+  c.cost AS 'Cout',
+  c.balance AS 'Balance',
+  c.statut AS 'Statut',
+  c.creation_date AS 'Sous contrat depuis',
+  c.last_update AS 'Dernière MàJ',
+  c.is_active AS 'Actif'
+FROM contract c
+JOIN client cl ON c.client_id = cl.client_id;
 """
 
 
