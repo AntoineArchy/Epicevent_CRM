@@ -6,7 +6,7 @@ class ClientView(BaseView):
     view_name = "list_client"
     name_display = "Voir tous les clients"
 
-    select_authorization = [authorization.Forbidden]
+    select_authorization = [authorization.IsGestion]
 
 
 class UserOwnClientView(ClientView):

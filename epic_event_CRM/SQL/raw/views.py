@@ -45,17 +45,21 @@ FROM contract;
 EVENT_FULL_VIEW = """
 CREATE OR REPLACE VIEW epicevent.list_event AS 
 SELECT 
-  contract_id AS `Contrat ID`,
-  event_id AS 'Event ID',
-  support_contact AS 'Contact de support',
-  name AS 'Événement', 
-  event_start AS 'Début', 
-  event_end AS 'Fin', 
-  location AS 'Lieu', 
-  attendees AS 'Participants', 
-  notes AS 'Notes' ,
-  last_update AS 'Dernière MàJ'
-FROM event;
+  c.contract_id AS `Contrat ID`,
+  e.event_id AS 'Event ID',
+  e.support_contact AS 'Contact de support',
+  e.name AS 'Événement', 
+  e.event_start AS 'Début', 
+  e.event_end AS 'Fin', 
+  e.location AS 'Lieu', 
+  e.attendees AS 'Participants', 
+  e.notes AS 'Notes' ,
+  e.last_update AS 'Dernière MàJ',
+  CONCAT(cl.full_name, ' - ', cl.phone, ', ', cl.email) AS 'Contacts',
+  cl.company_name AS 'Société'
+FROM event e
+JOIN contract c ON e.contract_id = c.contract_id
+JOIN client cl ON c.client_id = cl.client_id;
 """
 
 COMMERCIAL_OWN_CLIENT_VIEW = """
