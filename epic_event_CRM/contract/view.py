@@ -19,14 +19,14 @@ class UserClientContractView(ContractView):
 
 
 class UnsignedContract(UserClientContractView):
-    name_display = "Voir les contrat pas encore signé."
+    name_display = "Voir les contrats qui ne sont pas encore signés."
 
     filter = f"`Statut` = '{ContractStatus.to_sign.value}'"
     context_requirements = [UserClientContractView]
 
 
 class UnPayedContract(UserClientContractView):
-    name_display = "Voir les contrat pas encore payé."
+    name_display = "Voir les contrats qui ne sont pas encore payés."
 
     filter = f"`Statut` = '{ContractStatus.to_pay.value}'"
     context_requirements = [UserClientContractView]
