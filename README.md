@@ -111,7 +111,7 @@ Pour accéder au menu principal de l'application, exécutez : 'python3 main_menu
 Il vous faudra alors vous connecter avec les identifiants transmis par un administrateur pour commencer à utiliser l'application.
 
 Exemple d'une vue contrat et du menu disponible pour un commercial : 
-![img.png](repo_media/img.png)
+![img.png](repo_media/menu_example.png)
 
 ### Navigation
 La navigation dans les menus se fait via les flèches directionnelles du clavier, la sélection de l'option actuellement active dans le menu se fait avec la touche 'entrée'.  
