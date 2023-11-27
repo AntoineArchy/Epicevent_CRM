@@ -33,6 +33,7 @@ CREATE OR REPLACE VIEW epicevent.list_contract AS
 SELECT 
   c.contract_id AS `Contrat ID`,
   cl.client_id AS 'Client ID',
+  cl.collaborator_id AS 'Commercial associé', 
   CONCAT(cl.full_name, ' - ', cl.company_name) AS 'Client',
   c.cost AS 'Cout',
   c.balance AS 'Balance',
